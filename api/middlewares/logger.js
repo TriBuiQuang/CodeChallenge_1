@@ -1,6 +1,7 @@
-import winston from 'winston';
+import winston from "winston";
 
-import __dirname from '../../config/constant.js';
+import path from "path";
+const __dirname = path.resolve();
 
 const { createLogger, format, transports } = winston;
 const { combine, timestamp, printf, colorize } = format;
@@ -16,7 +17,7 @@ const filterOnly = (level) => {
 };
 
 const logger = createLogger({
-   level: 'info',
+   level: "info",
    format: combine(format.splat(), colorize(), timestamp(), myFormat),
    defaultMeta: {
       name: process.env.npm_package_name,
@@ -24,15 +25,15 @@ const logger = createLogger({
       environment: process.env.ENVIRONMENT,
    },
    transports: [
-      new transports.File({ filename: __dirname + '/debug/error.log', level: 'error', format: filterOnly('error') }),
-      new transports.File({ filename: __dirname + '/debug/info.log', level: 'info', format: filterOnly('info') }),
-      new transports.File({ filename: __dirname + '/debug/warn.log', level: 'warn', format: filterOnly('warn') }),
-      new transports.File({ filename: __dirname + '/debug/combined.log' }),
+      new transports.File({ filename: __dirname + "/debug/error.log", level: "error", format: filterOnly("error") }),
+      new transports.File({ filename: __dirname + "/debug/info.log", level: "info", format: filterOnly("info") }),
+      new transports.File({ filename: __dirname + "/debug/warn.log", level: "warn", format: filterOnly("warn") }),
+      new transports.File({ filename: __dirname + "/debug/combined.log" }),
    ],
 });
 
 // Chỉ ghi log ra console nếu không phải là môi trường production
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== "production") {
    logger.add(
       new transports.Console({
          format: format.simple(),
