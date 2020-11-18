@@ -2,7 +2,7 @@
 Code Challenge backend nodejs 11/2020
 ## Usage
 
-###To run api
+>To run api
 Please change docker-compose.yml 
 
 From ...
@@ -56,5 +56,7 @@ To ...
 
 ```
 
+>To run Unit test
+just change position "From" "to"  above
 ## Contact 
 [Tri Bui Quang](https://github.com/TriBuiQuang)
