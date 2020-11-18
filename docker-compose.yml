@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+   node:
+      container_name: node_server
+
+      build:
+         context: .
+         dockerfile: ./docker/Dockerfile
+      ports:
+         - 3000:3000
+      volumes:
+         - .:/app
+      command: npm start
+      environment:
+         - REDIS_HOST=redis
+      depends_on:
+         - redis
+         - mongo
+      networks:
+         - common
+      links:
+         - mongo
+
+   mongo:
+      container_name: mongo
+      image: mongo
+      ports:
+         - 27017:27017
+      volumes:
+         - ./data:/data/db
+         #  - ./mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+      #   - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      # environment:
+      #    - MONGO_INITDB_ROOT_USERNAME=root
+      #    - MONGO_INITDB_ROOT_PASSWORD=secret
+      #    - MONGO_INITDB_DATABASE=test
+      restart: unless-stopped
+      networks:
+         - common
+
+   redis:
+      image: redis:6.0.9-alpine
+      ports:
+         - "6379:6379"
+      command: redis-server
+      networks:
+         - common
+
+networks:
+   common:
+      driver: bridge
