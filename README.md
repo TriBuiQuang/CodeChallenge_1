@@ -58,5 +58,12 @@ To ...
 
 >To run Unit test
 just change position "From" "to"  above
+
+> To run project 
+
+```sh
+$docker-compose up
+```
+
 ## Contact 
 [Tri Bui Quang](https://github.com/TriBuiQuang)
